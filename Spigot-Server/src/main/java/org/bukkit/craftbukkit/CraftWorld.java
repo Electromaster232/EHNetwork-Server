@@ -87,7 +87,11 @@ public class CraftWorld implements World {
     }
 
     public Block getBlockAt(int x, int y, int z) {
-        return getChunkAt(x >> 4, z >> 4).getBlock(x & 0xF, y, z & 0xF);
+        try {
+            return getChunkAt(x >> 4, z >> 4).getBlock(x & 0xF, y, z & 0xF);
+        }catch(NullPointerException e){
+            return null;
+        }
     }
 
     public int getBlockTypeIdAt(int x, int y, int z) {

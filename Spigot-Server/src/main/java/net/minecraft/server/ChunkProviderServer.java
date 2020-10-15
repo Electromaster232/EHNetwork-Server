@@ -388,9 +388,13 @@ public class ChunkProviderServer implements IChunkProvider {
                 long chunkcoordinates = this.unloadQueue.popFirst();
                 Chunk chunk = this.chunks.get(chunkcoordinates);
                 if (chunk == null) continue;
-
-                ChunkUnloadEvent event = new ChunkUnloadEvent(chunk.bukkitChunk);
-                server.getPluginManager().callEvent(event);
+                ChunkUnloadEvent event;
+                try {
+                    event = new ChunkUnloadEvent(chunk.bukkitChunk);
+                    server.getPluginManager().callEvent(event);
+                }catch(NullPointerException e){
+                    continue;
+                }
                 if (!event.isCancelled()) {
 
                     if (chunk != null) {

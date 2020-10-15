@@ -96,9 +96,9 @@ public class Chunk {
         Arrays.fill(this.e, (byte) -1);
 
         // CraftBukkit start
-        if (!(this instanceof EmptyChunk)) {
-            this.bukkitChunk = new org.bukkit.craftbukkit.CraftChunk(this);
-        }
+       if (!(this instanceof EmptyChunk)) {
+            this.bukkitChunk = (org.bukkit.Chunk) new org.bukkit.craftbukkit.CraftChunk(this);
+       }
     }
 
     public org.bukkit.Chunk bukkitChunk;
